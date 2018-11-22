@@ -11,7 +11,7 @@ manage my photography. Lightroom cc is a new offering from adobe that stores
 images in their cloud service. Their tools are pretty great, syncing my photography
 with my mobile devices.
 
-#Architecture
+# Architecture
 This project is built with the following technologies:
 * Java
 * Kotlin
