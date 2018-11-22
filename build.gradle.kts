@@ -5,5 +5,11 @@
  * Learn how to create Gradle builds at https://guides.gradle.org/creating-new-gradle-builds/
  */
 plugins {
-  `idea`
+    `idea`
+}
+
+allprojects {
+    repositories {
+        mavenCentral()
+    }
 }
