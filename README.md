@@ -22,12 +22,12 @@ This project is built with the following technologies:
 
 ![architecture](architecture.png)
 
-The data flow of the system:
+### The data flow of the system:
 1. Adobe calls the lambda webhook
 1. The webhook chunks the list of images into individual messages per image an puts them onto SQS
 1. The image sync lambda fetches an image, puts it into s3, and adds metadata to dynamodb
 
-The browser flow of the system:
+### The browser flow of the system:
 1. Static site is loaded from s3 (html, js, css)
 1. JS calls api gateway to fetch image metadata
 1. Image fetcher looks up the image in dynamodb, and returns the s3 image location
