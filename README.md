@@ -47,6 +47,8 @@ This project is built with the following technologies:
 * Run the terraform plan - note you will need to override or set some of the variables
 in variables.tf as command line environment variables. 
 ```bash
+export AWS_ACCESS_KEY_ID=YOUR_AWS_ACCESS_KEY
+export AWS_SECRET_ACCESS_KEY=YOUR_SECRET_KEY
 cd terraform; terraform apply
 ```
 
