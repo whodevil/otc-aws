@@ -49,3 +49,26 @@ in variables.tf as command line environment variables.
 ```bash
 cd terraform; terraform apply
 ```
+
+* To store state in s3 add the following ignored file, `terraform_backend.tf` to the terraform directory,
+with the following configuration. Note that this is a chicken and egg problem, the s3 bucket needs
+to be manually created outside of the scope of terraform. Make sure you secure this bucket before
+adding state to it.
+```
+terraform {
+  backend "s3" {
+    bucket = "YOUR_BUCKET_NAME"
+    key    = "otc/terraform.tfstate"
+    region = "us-west-2"
+  }
+}
+
+data "terraform_remote_state" "otc" {
+  backend = "s3"
+  config {
+    bucket = "YOUR_BUCKET_NAME"
+    key    = "otc/terraform.tfstate"
+    region = "us-west-2"
+  }
+}
+```

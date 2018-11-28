@@ -4,23 +4,6 @@ provider "aws" {
   secret_key = "${var.aws_secret_access_key}"
 }
 
-terraform {
-  backend "s3" {
-    bucket = "${var.remote_state_bucket_name}"
-    key    = "${var.remote_state_key_name}"
-    region = "${var.region}"
-  }
-}
-
-data "terraform_remote_state" "otc" {
-  backend = "s3"
-  config {
-    bucket = "${var.remote_state_bucket_name}"
-    key    = "${var.remote_state_key_name}"
-    region = "${var.region}"
-  }
-}
-
 resource "aws_vpc" "default" {
   cidr_block = "10.0.0.0/16"
 }
