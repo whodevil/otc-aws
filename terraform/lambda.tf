@@ -23,7 +23,7 @@ resource "aws_lambda_function" "adobe_webhook" {
   role = "${aws_iam_role.adobe_webhook_role.arn}"
   runtime = "java8"
   description = "Handles adobe events for published images"
-  filename = "${path.module}../adobe-webhook/build/distributions/adobe-webhook.zip"
+  filename = "${path.module}/../adobe-webhook/build/distributions/adobe-webhook.zip"
 }
 
 resource "aws_lambda_permission" "adobe_webhook" {

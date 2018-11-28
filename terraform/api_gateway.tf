@@ -9,18 +9,17 @@ resource "aws_api_gateway_resource" "adobe_webhook" {
   path_part   = "webhook"
 }
 
-resource "aws_api_gateway_method" "adobe_webhook_proxy" {
+resource "aws_api_gateway_method" "adobe_webhook" {
   rest_api_id   = "${aws_api_gateway_rest_api.otc_api.id}"
   resource_id   = "${aws_api_gateway_resource.adobe_webhook.id}"
   http_method   = "GET"
-//TODO use authorization once real functionality is added.
   authorization = "NONE"
 }
 
 resource "aws_api_gateway_integration" "adobe_webhook" {
   rest_api_id = "${aws_api_gateway_rest_api.otc_api.id}"
-  resource_id = "${aws_api_gateway_method.adobe_webhook_proxy.resource_id}"
-  http_method = "${aws_api_gateway_method.adobe_webhook_proxy.http_method}"
+  resource_id = "${aws_api_gateway_method.adobe_webhook.resource_id}"
+  http_method = "${aws_api_gateway_method.adobe_webhook.http_method}"
 
   integration_http_method = "POST"
   type                    = "AWS_PROXY"

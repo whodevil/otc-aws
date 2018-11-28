@@ -32,3 +32,20 @@ This project is built with the following technologies:
 1. JS calls api gateway to fetch image metadata
 1. Image fetcher looks up the image in dynamodb, and returns the s3 image location
 1. Images are displayed in the browser
+
+# Development
+* Build the intellij project files
+```bash
+./gradlew idea
+```
+
+* Build the lambdas
+```bash
+./gradlew build
+```
+
+* Run the terraform plan - note you will need to override or set some of the variables
+in variables.tf as command line environment variables. 
+```bash
+cd terraform; terraform apply
+```

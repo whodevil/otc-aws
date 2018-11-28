@@ -1,4 +1,25 @@
-provider "aws" {}
+provider "aws" {
+  region = "${var.region}"
+  access_key = "${var.aws_access_key_id}"
+  secret_key = "${var.aws_secret_access_key}"
+}
+
+terraform {
+  backend "s3" {
+    bucket = "${var.remote_state_bucket_name}"
+    key    = "${var.remote_state_key_name}"
+    region = "${var.region}"
+  }
+}
+
+data "terraform_remote_state" "otc" {
+  backend = "s3"
+  config {
+    bucket = "${var.remote_state_bucket_name}"
+    key    = "${var.remote_state_key_name}"
+    region = "${var.region}"
+  }
+}
 
 resource "aws_vpc" "default" {
   cidr_block = "10.0.0.0/16"
@@ -20,12 +41,8 @@ resource "aws_subnet" "default" {
   map_public_ip_on_launch = true
 }
 
-variable "bucket_name" {
-  default = "site"
-}
-
 resource "aws_s3_bucket" "site" {
-  bucket = "${var.bucket_name}"
+  bucket = "${var.static_site_bucket_name}"
   acl    = "public-read"
 
   tags {
@@ -43,7 +60,7 @@ resource "aws_s3_bucket" "site" {
         "s3:GetObject"
       ],
       "Effect": "Allow",
-      "Resource": "arn:aws:s3:::${var.bucket_name}/*",
+      "Resource": "arn:aws:s3:::${var.static_site_bucket_name}/*",
       "Principal": "*"
     }
   ]
