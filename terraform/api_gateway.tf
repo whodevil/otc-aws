@@ -21,7 +21,7 @@ resource "aws_api_gateway_integration" "adobe_webhook" {
   resource_id = "${aws_api_gateway_method.adobe_webhook.resource_id}"
   http_method = "${aws_api_gateway_method.adobe_webhook.http_method}"
 
-  integration_http_method = "POST"
+  integration_http_method = "GET"
   type                    = "AWS_PROXY"
   uri                     = "${aws_lambda_function.adobe_webhook.invoke_arn}"
 }

@@ -33,5 +33,5 @@ resource "aws_lambda_permission" "adobe_webhook" {
   principal     = "apigateway.amazonaws.com"
 
   # https://docs.aws.amazon.com/apigateway/latest/developerguide/api-gateway-control-access-using-iam-policies-to-invoke-api.html
-  source_arn = "${aws_api_gateway_deployment.otc_api.execution_arn}/*/GET/webhook"
+  source_arn = "${aws_api_gateway_deployment.otc_api.execution_arn}/GET/webhook"
 }
