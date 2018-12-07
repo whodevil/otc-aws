@@ -33,7 +33,12 @@ This project is built with the following technologies:
 1. Images are displayed in the browser
 
 # Development
-* Build the lambdas
+This project assumes you have python 3.7 installed, and pipenv. To do vim based development,
+cd to the lambda you wish to work on, and run `pipenv install` and then `pipenv shell`.
+
+- [ ] TODO - outline intellij development, and how to interact with the UI code.
+
+* Build the lambda packages.
 ```bash
 make build
 ```
