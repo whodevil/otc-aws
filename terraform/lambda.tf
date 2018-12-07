@@ -38,11 +38,11 @@ resource "aws_lambda_function" "adobe_webhook" {
   function_name = "AdobeWebhook"
   handler = "info.offthecob.adobe.webhook.AdobeWebHook::handler"
   role = "${aws_iam_role.adobe_webhook_role.arn}"
-  runtime = "java8"
-  timeout = 15
-  memory_size = 256
+  runtime = "python3.7"
+  timeout = 5
+  memory_size = 128
   description = "Handles adobe events for published images"
-  filename = "${path.module}/../adobe-webhook/build/libs/adobe-webhook-all.jar"
+  filename = "${path.module}/../builddir/adobeWebhook.zip"
 }
 
 resource "aws_lambda_permission" "adobe_webhook" {
