@@ -13,8 +13,7 @@ with my mobile devices.
 
 # Architecture
 This project is built with the following technologies:
-* Java
-* Kotlin
+* Python
 * React.js
 * SQS (amazon message queues)
 * Aws Lambda
@@ -34,14 +33,9 @@ This project is built with the following technologies:
 1. Images are displayed in the browser
 
 # Development
-* Build the intellij project files
-```bash
-./gradlew idea
-```
-
 * Build the lambdas
 ```bash
-./gradlew build
+make build
 ```
 
 * Run the terraform plan - note you will need to override or set some of the variables
@@ -49,7 +43,7 @@ in variables.tf as command line environment variables.
 ```bash
 export AWS_ACCESS_KEY_ID=YOUR_AWS_ACCESS_KEY
 export AWS_SECRET_ACCESS_KEY=YOUR_SECRET_KEY
-cd terraform; terraform apply
+make plan
 ```
 
 * To store state in s3 add the following ignored file, `terraform_backend.tf` to the terraform directory,
@@ -73,4 +67,10 @@ data "terraform_remote_state" "otc" {
     region = "us-west-2"
   }
 }
+```
+
+* To deploy to production do the following. Please make sure you run the plan first, and verify that it is doing
+what you expect.
+```bash
+make deploy
 ```
