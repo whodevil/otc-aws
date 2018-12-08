@@ -1,5 +1,3 @@
-import boto3
-
-def lambda_handler(event, context):
-    print event
-    return "OK"
+def handler(event, context):
+    print(event)
+    return { "message": "Hello, World!" }
