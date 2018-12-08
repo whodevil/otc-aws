@@ -34,18 +34,25 @@ resource "aws_iam_role_policy" "adobe_webhook_logging" {
 EOF
 }
 
-module "adobe_webhook" {
+module "adobe_webhook_lambda" {
   source = "./lambda"
   name = "adobe_webhook"
   role = "${aws_iam_role.adobe_webhook_role.arn}"
 }
 
-resource "aws_lambda_permission" "adobe_webhook" {
-  statement_id  = "AllowAPIGatewayInvoke"
-  action        = "lambda:InvokeFunction"
-  function_name = "${aws_lambda_function.adobe_webhook.arn}"
-  principal     = "apigateway.amazonaws.com"
+resource "aws_api_gateway_resource" "adobe_webhook" {
+  rest_api_id = "${aws_api_gateway_rest_api.otc_api.id}"
+  parent_id   = "${aws_api_gateway_rest_api.otc_api.root_resource_id}"
+  path_part   = "webhook"
+}
 
-  # https://docs.aws.amazon.com/apigateway/latest/developerguide/api-gateway-control-access-using-iam-policies-to-invoke-api.html
-  source_arn = "${aws_api_gateway_deployment.otc_api.execution_arn}/*"
+module "adobe_webhook_api_method" {
+  source = "./api_method"
+
+  aws_api_gateway_rest_api_execution_arn = "${aws_api_gateway_rest_api.otc_api.execution_arn}"
+  aws_api_gateway_resource_id = "${aws_api_gateway_resource.adobe_webhook.id}"
+  aws_api_gateway_rest_api_id = "${aws_api_gateway_rest_api.otc_api.id}"
+  lambda_invoke_arn = "${module.adobe_webhook_lambda.invoke_arn}"
+  lambda_name = "${module.adobe_webhook_lambda.name}"
+  path = "/webhook"
 }
