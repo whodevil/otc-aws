@@ -1,0 +1,26 @@
+# Auto detect text files and perform LF normalization
+* text=auto
+
+# Disable line ending normalization for Windows (and shared) text files. This is
+# a dumb workaround for the problem that TeamCity's git implementation (JGit) does
+# not currently respect line ending normalization in gitattributes files.
+# (https://bugs.eclipse.org/bugs/show_bug.cgi?id=342372) Instead, we need to
+# make sure these files are committed with CRLF line endings so that when the
+# artifacts are built and shipped to Windows systems, they have the correct
+# line endings.
+#
+*.cmd -text
+*.bat -text
+*.ps1 -text
+*.vbs -text
+*.ini -text
+*.conf -text
+*.xml -text
+*.txt -text
+
+
+# Declare files that will always have LF line endings on checkout.
+*.sh text eol=lf
+*.js text eol=lf
+*.json text eol=lf
+*.lock text eol=lf
