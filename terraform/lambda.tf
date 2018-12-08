@@ -34,15 +34,10 @@ resource "aws_iam_role_policy" "adobe_webhook_logging" {
 EOF
 }
 
-resource "aws_lambda_function" "adobe_webhook" {
-  function_name = "AdobeWebhook"
-  handler = "info.offthecob.adobe.webhook.AdobeWebHook::handler"
+module "adobe_webhook" {
+  source = "./lambda"
+  name = "adobe_webhook"
   role = "${aws_iam_role.adobe_webhook_role.arn}"
-  runtime = "python3.7"
-  timeout = 5
-  memory_size = 128
-  description = "Handles adobe events for published images"
-  filename = "${path.module}/../builddir/adobeWebhook.zip"
 }
 
 resource "aws_lambda_permission" "adobe_webhook" {
