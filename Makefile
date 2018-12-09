@@ -10,7 +10,13 @@ $(BUILD_DIR)/adobe_webhook.zip: builddir
 #	@echo VENV $(VENV)
 #	cd $(VENV)/lib/python3.7/site-packages && zip -r9 $(BUILD_DIR)/adobeWebhook.zip ./*
 
-build: $(BUILD_DIR)/adobe_webhook.zip
+$(BUILD_DIR)/image_fetcher.zip: builddir
+	cd image_fetcher && zip -r9 $(BUILD_DIR)/image_fetcher.zip image_fetcher.py
+
+$(BUILD_DIR)/image_sync.zip: builddir
+	cd image_sync && zip -r9 $(BUILD_DIR)/image_sync.zip image_sync.py
+
+build: $(BUILD_DIR)/adobe_webhook.zip $(BUILD_DIR)/image_fetcher.zip $(BUILD_DIR)/image_sync.zip
 
 clean:
 	rm -rf builddir
