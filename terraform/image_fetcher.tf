@@ -17,9 +17,9 @@ resource "aws_iam_role" "image_fetcher_role" {
 EOF
 }
 
-resource "aws_iam_role_policy" "image_fetcher_logging" {
+resource "aws_iam_role_policy" "image_fetcher" {
   role = "${aws_iam_role.image_fetcher_role.name}"
-  name = "ImageFetcherLoggingPolicy"
+  name = "ImageFetcherPolicy"
   policy = <<EOF
 {
   "Version": "2012-10-17",

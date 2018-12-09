@@ -17,15 +17,25 @@ resource "aws_iam_role" "adobe_webhook_role" {
 EOF
 }
 
-resource "aws_iam_role_policy" "adobe_webhook_logging" {
+resource "aws_iam_role_policy" "adobe_webhook" {
   role = "${aws_iam_role.adobe_webhook_role.name}"
-  name = "AdobeWebHookLoggingPolicy"
+  name = "AdobeWebHookPolicy"
   policy = <<EOF
 {
   "Version": "2012-10-17",
   "Statement": [
     {
        "Action": ["logs:CreateLogGroup", "logs:CreateLogStream", "logs:PutLogEvents"],
+       "Effect": "Allow",
+       "Resource": ["*"]
+    },
+    {
+       "Action": ["sqs:SendMessage"],
+       "Effect": "Allow",
+       "Resource": ["${aws_sqs_queue.image_sync_job_queue.arn}"]
+    },
+    {
+       "Action": ["sqs:ListQueues", "sqs:GetQueueUrl"],
        "Effect": "Allow",
        "Resource": ["*"]
     }
