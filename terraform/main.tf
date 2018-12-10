@@ -23,7 +23,7 @@ resource "aws_subnet" "default" {
 }
 
 resource "aws_s3_bucket" "site" {
-  bucket = "${var.static_site_bucket_name}"
+  bucket = "static.${var.hostname}"
   acl    = "public-read"
 
   tags {
@@ -42,7 +42,7 @@ resource "aws_s3_bucket" "site" {
         "s3:GetObject"
       ],
       "Effect": "Allow",
-      "Resource": "arn:aws:s3:::${var.static_site_bucket_name}/*",
+      "Resource": "arn:aws:s3:::static.${var.hostname}/*",
       "Principal": "*"
     }
   ]

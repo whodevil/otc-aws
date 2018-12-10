@@ -1,5 +1,5 @@
 resource "aws_s3_bucket" "images" {
-  bucket = "images.offthecob.info"
+  bucket = "images.${var.hostname}"
   acl = "public-read"
   tags {
     Environment = "production"
