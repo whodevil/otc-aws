@@ -5,10 +5,10 @@ builddir:
 	mkdir "$(BUILD_DIR)"
 
 $(BUILD_DIR)/adobe_webhook.zip: builddir
+	$(eval VENV := $(shell cd adobe_webhook && pipenv --venv))
+	@echo VENV $(VENV)
+	cd $(VENV)/lib/python3.7/site-packages && zip -r9 $(BUILD_DIR)/adobe_webhook.zip ./*
 	cd adobe_webhook && zip -r9 $(BUILD_DIR)/adobe_webhook.zip adobe_webhook.py
-#	$(eval VENV := $(shell cd adobe_webhook && pipenv --venv))
-#	@echo VENV $(VENV)
-#	cd $(VENV)/lib/python3.7/site-packages && zip -r9 $(BUILD_DIR)/adobeWebhook.zip ./*
 
 $(BUILD_DIR)/image_fetcher.zip: builddir
 	cd image_fetcher && zip -r9 $(BUILD_DIR)/image_fetcher.zip image_fetcher.py
