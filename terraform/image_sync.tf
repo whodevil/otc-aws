@@ -35,7 +35,10 @@ resource "aws_iam_role_policy" "image_sync" {
        "Resource": ["*"]
     },
     {
-       "Action": ["sqs:DeleteMessage", "sqs:ChangeMessageVisibility", "sqs:ReceiveMessage"],
+       "Action": ["sqs:DeleteMessage",
+                  "sqs:ChangeMessageVisibility",
+                  "sqs:ReceiveMessage",
+                  "sqs:GetQueueAttributes"],
        "Effect": "Allow",
        "Resource": ["${aws_sqs_queue.image_sync_job_queue.arn}"]
     },
@@ -50,7 +53,7 @@ resource "aws_iam_role_policy" "image_sync" {
     {
        "Action": ["s3:PutObject"],
        "Effect": "Allow",
-       "Resource": ["${aws_s3_bucket.images.arn/*}"]
+       "Resource": ["${aws_s3_bucket.images.arn}/*"]
     }
   ]
 }

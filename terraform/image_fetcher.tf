@@ -27,7 +27,7 @@ resource "aws_iam_role_policy" "image_fetcher" {
     {
        "Action": ["logs:CreateLogGroup",
                   "logs:CreateLogStream",
-                  "logs:PutLogEvents"
+                  "logs:PutLogEvents",
                   "dynamodb:ListTables"],
        "Effect": "Allow",
        "Resource": ["*"]
