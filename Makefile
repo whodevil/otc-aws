@@ -11,9 +11,15 @@ $(BUILD_DIR)/adobe_webhook.zip: builddir
 	cd adobe_webhook && zip -r9 $(BUILD_DIR)/adobe_webhook.zip adobe_webhook.py
 
 $(BUILD_DIR)/image_fetcher.zip: builddir
+	$(eval VENV := $(shell cd image_fetcher && pipenv --venv))
+	@echo VENV $(VENV)
+	cd $(VENV)/lib/python3.7/site-packages && zip -r9 $(BUILD_DIR)/image_fetcher.zip ./*
 	cd image_fetcher && zip -r9 $(BUILD_DIR)/image_fetcher.zip image_fetcher.py
 
 $(BUILD_DIR)/image_sync.zip: builddir
+	$(eval VENV := $(shell cd image_sync && pipenv --venv))
+	@echo VENV $(VENV)
+	cd $(VENV)/lib/python3.7/site-packages && zip -r9 $(BUILD_DIR)/image_sync.zip ./*
 	cd image_sync && zip -r9 $(BUILD_DIR)/image_sync.zip image_sync.py
 
 build: $(BUILD_DIR)/adobe_webhook.zip $(BUILD_DIR)/image_fetcher.zip $(BUILD_DIR)/image_sync.zip
@@ -28,7 +34,9 @@ terraform/.terraform:
 	cd terraform && terraform init
 
 taint: terraform/.terraform
-	cd terraform && terraform taint aws_lambda_function.adobe_webhook
+	cd terraform && terraform taint -module=adobe_webhook_lambda aws_lambda_function.lambda
+	cd terraform && terraform taint -module=image_sync_lambda aws_lambda_function.lambda
+	cd terraform && terraform taint -module=image_fetcher_lambda aws_lambda_function.lambda
 
 $(BUILD_DIR)/terraform.plan: build terraform/.terraform
 	cd terraform && terraform plan -out $(BUILD_DIR)/terraform.plan
