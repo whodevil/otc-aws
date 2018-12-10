@@ -28,6 +28,7 @@ resource "aws_s3_bucket" "site" {
 
   tags {
     Name = "static site"
+    Environment = "production"
   }
 
   policy = <<EOF

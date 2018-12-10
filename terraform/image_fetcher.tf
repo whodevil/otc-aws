@@ -25,9 +25,21 @@ resource "aws_iam_role_policy" "image_fetcher" {
   "Version": "2012-10-17",
   "Statement": [
     {
-       "Action": ["logs:CreateLogGroup", "logs:CreateLogStream", "logs:PutLogEvents"],
+       "Action": ["logs:CreateLogGroup",
+                  "logs:CreateLogStream",
+                  "logs:PutLogEvents"
+                  "dynamodb:ListTables"],
        "Effect": "Allow",
        "Resource": ["*"]
+    },
+    {
+       "Action": ["dynamodb:GetItem",
+                  "dynamodb:BatchGetItem",
+                  "dynamodb:Query",
+                  "dynamodb:Scan"],
+       "Effect": "Allow",
+       "Resource": ["${aws_dynamodb_table.image_metadata.arn}/*",
+                    "${aws_dynamodb_table.image_tag.arn}/*"]
     }
   ]
 }

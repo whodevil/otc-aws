@@ -15,8 +15,9 @@ with my mobile devices.
 This project is built with the following technologies:
 * Python
 * React.js
-* SQS (amazon message queues)
-* Aws Lambda
+* AWS SQS (amazon message queues)
+* AWS Lambda
+* AWS DynamoDB
 * Hashicorp Terraform
 
 ![architecture](architecture.png)
@@ -32,11 +33,28 @@ This project is built with the following technologies:
 1. Image fetcher looks up the image in dynamodb, and returns the s3 image location
 1. Images are displayed in the browser
 
+### Shape of the Meta Data DB
+The intent is to be able to organize my photography by tags. An image can have more than one
+tag.
+
+* Tagging table
+
+| Image Tag | s3 key | 
+|-----------|--------|
+| graffiti  | id1    | 
+| Street    | id1    | 
+| Graffiti  | id2    |
+
+* Image info table - the s3 key is the primary key, and is a uuid
+
+| s3 key | upload date | metadata blob            |
+|--------|-------------|--------------------------|
+| id1    | iso8601     | {lens: 35mm, fstop: 1.4} |
+
+
 # Development
 This project assumes you have python 3.7 installed, and pipenv. To do vim based development,
 cd to the lambda you wish to work on, and run `pipenv install` and then `pipenv shell`.
-
-- [ ] TODO - outline intellij development, and how to interact with the UI code.
 
 * Build the lambda packages.
 ```bash

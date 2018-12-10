@@ -25,7 +25,12 @@ resource "aws_iam_role_policy" "image_sync" {
   "Version": "2012-10-17",
   "Statement": [
     {
-       "Action": ["logs:CreateLogGroup", "logs:CreateLogStream", "logs:PutLogEvents"],
+       "Action": ["logs:CreateLogGroup",
+                  "logs:CreateLogStream",
+                  "logs:PutLogEvents",
+                  "sqs:ListQueues",
+                  "sqs:GetQueueUrl",
+                  "dynamodb:ListTables"],
        "Effect": "Allow",
        "Resource": ["*"]
     },
@@ -35,9 +40,17 @@ resource "aws_iam_role_policy" "image_sync" {
        "Resource": ["${aws_sqs_queue.image_sync_job_queue.arn}"]
     },
     {
-       "Action": ["sqs:ListQueues", "sqs:GetQueueUrl"],
+       "Action": ["dynamodb:GetItem",
+                  "dynamodb:PutItem",
+                  "dynamodb:UpdateItem"],
        "Effect": "Allow",
-       "Resource": ["*"]
+       "Resource": ["${aws_dynamodb_table.image_metadata.arn}",
+                    "${aws_dynamodb_table.image_tag.arn}"]
+    },
+    {
+       "Action": ["s3:PutObject"],
+       "Effect": "Allow",
+       "Resource": ["${aws_s3_bucket.images.arn/*}"]
     }
   ]
 }
