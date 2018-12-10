@@ -5,4 +5,5 @@ def handler(event, context):
     print(event)
     sqs = boto3.resource('sqs')
     queue = sqs.get_queue_by_name(QueueName='ImageSyncJobQueue')
+    print(queue.url)
     return {"message": "Hello, World!"}
