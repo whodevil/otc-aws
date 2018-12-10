@@ -68,5 +68,7 @@ module "image_sync_lambda" {
 
 resource "aws_lambda_event_source_mapping" "image_sync_job_queue" {
   event_source_arn = "${aws_sqs_queue.image_sync_job_queue.arn}"
+  enabled = true
   function_name    = "${module.image_sync_lambda.arn}"
+  batch_size = 1
 }
