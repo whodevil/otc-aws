@@ -1,22 +1,24 @@
 BUILD_DIR := $(CURDIR)/builddir
 
-builddir:
-	@echo mkfile: $(CURDIR)
-	mkdir "$(BUILD_DIR)"
-
-$(BUILD_DIR)/adobe_webhook.zip: builddir
+$(BUILD_DIR)/adobe_webhook.zip: 
+	mkdir "$(BUILD_DIR)" || true
+	cd adobe_webhook && pipenv install
 	$(eval VENV := $(shell cd adobe_webhook && pipenv --venv))
 	@echo VENV $(VENV)
 	cd $(VENV)/lib/python3.7/site-packages && zip -r9 $(BUILD_DIR)/adobe_webhook.zip ./*
 	cd adobe_webhook && zip -r9 $(BUILD_DIR)/adobe_webhook.zip adobe_webhook.py
 
-$(BUILD_DIR)/image_fetcher.zip: builddir
+$(BUILD_DIR)/image_fetcher.zip:
+	mkdir "$(BUILD_DIR)" || true
+	cd image_fetcher && pipenv install
 	$(eval VENV := $(shell cd image_fetcher && pipenv --venv))
 	@echo VENV $(VENV)
 	cd $(VENV)/lib/python3.7/site-packages && zip -r9 $(BUILD_DIR)/image_fetcher.zip ./*
 	cd image_fetcher && zip -r9 $(BUILD_DIR)/image_fetcher.zip image_fetcher.py
 
-$(BUILD_DIR)/image_sync.zip: builddir
+$(BUILD_DIR)/image_sync.zip:
+	mkdir "$(BUILD_DIR)" || true
+	cd image_sync && pipenv install
 	$(eval VENV := $(shell cd image_sync && pipenv --venv))
 	@echo VENV $(VENV)
 	cd $(VENV)/lib/python3.7/site-packages && zip -r9 $(BUILD_DIR)/image_sync.zip ./*
