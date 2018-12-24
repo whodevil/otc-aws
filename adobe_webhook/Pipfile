@@ -10,6 +10,7 @@ pyboto3 = "*"
 
 [packages]
 boto3 = "*"
+aws-lambda-logging = "*"
 
 [requires]
 python_version = "3.7"
