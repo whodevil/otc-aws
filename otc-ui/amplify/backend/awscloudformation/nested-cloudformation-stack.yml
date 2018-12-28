@@ -142,6 +142,26 @@
 					"env": "prod"
 				}
 			}
+		},
+		"apiotcui": {
+			"Type": "AWS::CloudFormation::Stack",
+			"Properties": {
+				"TemplateURL": "https://s3.amazonaws.com/otc-ui-20181228134419-deployment/amplify-cfn-templates/api/cloudformation-template.json",
+				"Parameters": {
+					"AppSyncApiName": "otcui",
+					"AuthCognitoUserPoolId": {
+						"Fn::GetAtt": [
+							"authcognito53747ef3",
+							"Outputs.UserPoolId"
+						]
+					},
+					"schemaGraphql": "s3://otc-ui-20181228134419-deployment/amplify-appsync-files/schema.graphql.1546036624904",
+					"ResolverBucket": "otc-ui-20181228134419-deployment",
+					"ResolverRootKey": "amplify-appsync-files",
+					"DeploymentTimestamp": "1546036624904",
+					"env": "prod"
+				}
+			}
 		}
 	},
 	"Outputs": {
