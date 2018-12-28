@@ -1,0 +1,9 @@
+{
+    "AppSyncApiName": "otcui",
+    "AuthCognitoUserPoolId": {
+        "Fn::GetAtt": [
+            "authcognito53747ef3",
+            "Outputs.UserPoolId"
+        ]
+    }
+}
