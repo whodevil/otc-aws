@@ -1,0 +1,14 @@
+{
+    "prod": {
+        "awscloudformation": {
+            "AuthRoleName": "otc-ui-20181228134419-authRole",
+            "UnauthRoleArn": "arn:aws:iam::690799348346:role/otc-ui-20181228134419-unauthRole",
+            "AuthRoleArn": "arn:aws:iam::690799348346:role/otc-ui-20181228134419-authRole",
+            "Region": "us-west-2",
+            "DeploymentBucketName": "otc-ui-20181228134419-deployment",
+            "UnauthRoleName": "otc-ui-20181228134419-unauthRole",
+            "StackName": "otc-ui-20181228134419",
+            "StackId": "arn:aws:cloudformation:us-west-2:690799348346:stack/otc-ui-20181228134419/bb3c74f0-0ae9-11e9-864a-503aca41a061"
+        }
+    }
+}
