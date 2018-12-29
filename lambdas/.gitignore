@@ -1,0 +1,9 @@
+.gradle
+*.iml
+*.ipr
+*.iws
+.idea
+build/
+builddir/
+.terraform
+.vscode
